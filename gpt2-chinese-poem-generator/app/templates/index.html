@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPT-2 古诗生成器</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem auto; max-width: 800px; line-height: 1.6; }
+    textarea { width: 100%; min-height: 80px; }
+    .box { background: #f5f5f5; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .warn { color: #c0392b; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>GPT-2 中文古诗生成系统</h1>
+  <p>输入一句古风提示词，生成一段诗句。</p>
+
+  {% if not model_ready %}
+  <p class="warn">模型尚未就绪。请先训练并将模型保存到 <code>models/gpt2-poem</code>。</p>
+  {% endif %}
+
+  <form method="POST">
+    <label for="prompt">提示词</label>
+    <textarea id="prompt" name="prompt" placeholder="例如：大漠孤烟直">{{ prompt }}</textarea>
+    <br />
+    <button type="submit">生成诗句</button>
+  </form>
+
+  {% if generated %}
+  <div class="box">
+    <h3>生成结果</h3>
+    <p>{{ generated }}</p>
+  </div>
+  {% endif %}
+</body>
+</html>
